@@ -1,0 +1,55 @@
+{
+  "name": "node-kiturami",
+  "version": "1.0.0",
+  "description": "Unofficial kiturami iot thermo controller API for Node.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "lint": "eslint src",
+    "coverage": "nyc --require babel-core/register --reporter=lcov --reporter=text mocha -R spec test/*.spec.js test/**/*.spec.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mooyoul/node-kiturami.git"
+  },
+  "keywords": [
+    "kiturami",
+    "thermostat",
+    "thermometer",
+    "iot",
+    "smarthome",
+    "korean"
+  ],
+  "author": "MooYeol Prescott Lee <mooyoul@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mooyoul/node-kiturami/issues"
+  },
+  "homepage": "https://github.com/mooyoul/node-kiturami#readme",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "debug": "^2.3.0",
+    "mqtt": "^2.0.1",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
+    "babel-plugin-istanbul": "^2.0.3",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-plugin-transform-strict-mode": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-mocha": "^4.7.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "mocha-lcov-reporter": "^1.2.0",
+    "nock": "^9.0.2",
+    "nyc": "^8.4.0"
+  }
+}
