@@ -1,4 +1,13 @@
 # node-kiturami
+[![Build Status](https://travis-ci.org/mooyoul/node-kiturami.svg?branch=master)](https://travis-ci.org/mooyoul/node-kiturami)
+[![Coverage Status](https://coveralls.io/repos/github/mooyoul/node-kiturami/badge.svg?branch=master)](https://coveralls.io/github/mooyoul/node-kiturami?branch=master)
+[![codecov.io](https://codecov.io/github/mooyoul/node-kiturami/coverage.svg?branch=master)](https://codecov.io/github/mooyoul/node-kiturami?branch=master)
+[![bitHound Overall Score](https://www.bithound.io/github/mooyoul/node-kiturami/badges/score.svg)](https://www.bithound.io/github/mooyoul/node-kiturami)
+[![Dependency Status](https://david-dm.org/mooyoul/node-kiturami.svg)](https://david-dm.org/mooyoul/node-kiturami)
+[![devDependency Status](https://david-dm.org/mooyoul/node-kiturami/dev-status.svg)](https://david-dm.org/mooyoul/node-kiturami#info=devDependencies)
+[![Known Vulnerabilities](https://snyk.io/test/github/mooyoul/node-kiturami/badge.svg)](https://snyk.io/test/github/mooyoul/node-kiturami)
+[![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://mooyoul.mit-license.org/)
+
 Unofficial kiturami iot thermo controller API for Node.js
 
 _비공식_ 귀뚜라미 IoT 온도제어기 Javascript API
