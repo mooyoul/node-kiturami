@@ -1,5 +1,5 @@
 {
-  "name": "node-kiturami",
+  "name": "kiturami",
   "version": "1.0.0",
   "description": "Unofficial kiturami iot thermo controller API for Node.js",
   "main": "lib/index.js",
