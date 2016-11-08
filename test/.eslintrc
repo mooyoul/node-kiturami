@@ -1,0 +1,12 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "max-len": ["error", 160]
+  },
+  "plugins": [
+    "mocha"
+  ],
+  "env": {
+    "mocha": true
+  }
+}
