@@ -7,7 +7,7 @@
     "build": "babel src -d lib",
     "lint": "eslint src",
     "coverage": "nyc --require babel-core/register --reporter=lcov --reporter=text mocha -R spec test/*.spec.js test/**/*.spec.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint && npm run coverage"
   },
   "repository": {
     "type": "git",
