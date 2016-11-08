@@ -108,6 +108,16 @@ api.sendCommand(Commands.OperatingState.forge().indoorTempBasedHeating())
 
 ```
 
+## API
+
+본 섹션은 추후 업데이트 될 예정입니다.
+
+### HTTPS API
+
+### Commands
+
+
+
 
 ## Testing
 
@@ -124,6 +134,7 @@ api.sendCommand(Commands.OperatingState.forge().indoorTempBasedHeating())
 
 - [x] 제어 API 구현
 - [ ] 상태 수신을 위한 Receiver 구현
+- [ ] TCP Socket API 구현
 
 
 ## License
