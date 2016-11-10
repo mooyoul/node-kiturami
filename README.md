@@ -38,6 +38,7 @@ _비공식_ 귀뚜라미 IoT 온도제어기 Javascript API
 - 각 난방 방식별 온도 설정 API
 - 예약기능 설정 API 
 - 상태 요청 API
+- 실시간 상태 수신
 
 
 
@@ -115,16 +116,16 @@ api.sendCommand(Commands.OperatingState.forge().indoorTempBasedHeating())
 상태 정보는 제어 정보가 변경되거나, `RequestState`를 통해 상태 요청 명령을 전송한 경우 갱신(수신) 됩니다.
  
 
-```
-const
-  { KituramiReceiver } = require('kiturami');
+```javascript
+'use strict';
 
-const receiver = new KituramiReceiver('YOUR_NODE_ID');
+const
+  { KituramiReceiver } = require('kiturami'),
+  receiver = new KituramiReceiver('YOUR_NODE_ID');
+
 receiver.on('message', (state, topic, bufMessage, bufPacket) => {
   console.log('Device state changed: ', state);
 });
-
-
 ```
 
 ## API
