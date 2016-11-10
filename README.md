@@ -277,6 +277,13 @@ A simple helper function to instantiate a new KituramiReceiver without needing `
 
 
 
+## Debugging
+Set `DEBUG` environment variable to `node-kiturami:*`.
+You will see debug messages on your console.
+
+> $ env DEBUG='node-kiturami:*' node your-app.js
+ 
+
 ## Testing
 
 > $ npm run test
