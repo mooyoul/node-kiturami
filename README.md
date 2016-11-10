@@ -76,7 +76,7 @@ const
   Commands  = kiturami.KituramiCommands,
   api = new KituramiHttpsAPI();
 
-api.logIn('YOUR_ID', 'YOUR_PASSWORd')
+api.logIn('YOUR_ID', 'YOUR_PASSWORD')
   .then((body) => api.sendCommand(Commands.OperatingState.forge().indoorTempBasedHeating()))
   .then(() => api.sendCommand(Commands.IndoorTempBasedHeating.forge().setTargetTemp(24)))
   .then(() => api.sendCommand(Commands.RequestState.forge()))
@@ -88,6 +88,8 @@ api.logIn('YOUR_ID', 'YOUR_PASSWORd')
 nodeId와 API Key를 알고있다면, 로그인 과정을 생략할 수도 있습니다.
 
 ```javascript
+'use strict';
+
 const
   kiturami = require('kiturami'),
   KituramiHttpsAPI = kiturami.KituramiHttpsAPI,
