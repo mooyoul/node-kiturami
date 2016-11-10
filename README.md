@@ -110,21 +110,182 @@ api.sendCommand(Commands.OperatingState.forge().indoorTempBasedHeating())
 
 ```
 
+상태 수신은 MQTT 클라이언트를 통해 실시간으로 수신되며, nodeId가 필요합니다.
+
+상태 정보는 제어 정보가 변경되거나, `RequestState`를 통해 상태 요청 명령을 전송한 경우 갱신(수신) 됩니다.
+ 
+
+```
+const
+  { KituramiReceiver } = require('kiturami');
+
+const receiver = new KituramiReceiver('YOUR_NODE_ID');
+receiver.on('message', (state, topic, bufMessage, bufPacket) => {
+  console.log('Device state changed: ', state);
+});
+
+
+```
+
 ## API
 
 본 섹션은 추후 업데이트 될 예정입니다.
 
 ### HTTPS API
 
-### Commands
+#### KituramiHttpsAPI `constructor` (apiKey, nodeId) -> KituramiHttpsAPI
 
+#### KituramiHttpsAPI.forge(apiKey, nodeId) -> KituramiHttpsAPI
+A simple helper function to instantiate a new KituramiHttpsAPI without needing `new`.
+
+#### KIturamiHttpsAPI.setAPIKey(apiKey)
+
+#### KituramiHttpsAPI#login(username, password) -> Promise
+
+#### KituramiHttpsAPI#logIn(username, password) -> Promise
+Alias of KituramiHttpsAPI#login
+
+#### KituramiHttpsAPI#associateNode(serial) -> Promise
+Associate device node
+
+#### KituramiHttpsAPI#sendCommand(Command|string|Buffer)-> Promise
+Send command to API server
+
+
+
+### Commands
+#### KituramiCommands.PowerState
+보일러 전원 설정
+
+- KituramiCommands.PowerState#turnOff
+- KituramiCommands.PowerState#turnOn
+
+#### KituramiCommands.OperatingState 
+동작 모드 설정 (단순한 동작 모드 변경, 세부 설정 기능이 아님에 주의)
+
+- KituramiCommands.OperatingState#indoorTempBasedHeating
+- KituramiCommands.OperatingState#waterTempBasedHeating
+- KituramiCommands.OperatingState#hotWaterOnly
+- KituramiCommands.OperatingState#timetableBasedRepeating
+- KituramiCommands.OperatingState#intervalBasedRepeating
+- KituramiCommands.OperatingState#away
+
+#### KituramiCommands.IndoorTempBasedHeating
+실내온도 모드 세부 설정 변경
+
+- KituramiCommands.IndoorTempBasedHeating#setTargetTemp(temp)
+
+
+#### KituramiCommands.WaterTempBasedHeating
+난방수온도 모드 세부 설정 변경
+
+- KituramiCommands.WaterTempBasedHeating#setTargetTemp(temp)
+
+#### KituramiCommands.HotWaterOnly
+목욕 모드 세부 설정 변경
+
+- KituramiCommands.HotWaterOnly#setTargetTemp(temp)
+
+#### KituramiCommands.IntervalBasedRepeating
+가동시간 / 중지시간 설정을 사용하는 반복모드 세부 설정
+
+- KituramiCommands.IntervalBasedRepeating#setInterval(runningMinutes, stoppingHours)
+  - runningMinutes, stoppingHours 둘 다 Number 허용
+  - runningMinutes 는 5분 단위만 허용
+  - stoppingHours 는 시 단위만 허용
+
+
+#### KituramiCommands.TimetableBasedRepeating
+30분 단위 24시간 스케쥴을 사용하는 예약모드 세부 설정
+
+- KituramiCommands.TimetableBasedRepeating#setInterval(timetable)
+  - timetable은 48자의 String 형태임
+
+
+#### KituramiCommands.RequestState
+상태 요청, 본 명령 전송시 MQTT를 통해 상태가 실시간으로 전송됩니다.
+
+
+
+### Receiver
+
+
+#### KituramiReceiver `constructor` (nodeId, mqttOptions) -> KituramiReceiver
+- mqttOptions.uri: MQTT Broker uri (e.g. `mqtt://test.mosquitto.org`)
+- mqttOptions.username: Username for MQTT authentication
+- mqttOptions.password: Password for MQTT authentication
+
+
+
+#### KituramiReceiver.forge
+A simple helper function to instantiate a new KituramiReceiver without needing `new`.
+
+
+#### `message (state, topic, message, packet)`
+- state.name: `INDOOR_TEMP_BASED_HEATING`, `WATER_TEMP_BASED_HEATING`, `HOT_WATER_ONLY`, `AWAY`, ...
+- state.props: Related properties
+
+
+#### State definitions
+##### POWER_OFF
+- name: POWER_OFF (전원 꺼짐)
+- props: N/A
+
+#### POWER_ON
+- name: POWER_ON (전원 켜짐)
+- props: N/A
+
+#### INDOOR_TEMP_BASED_HEATING
+- name: INDOOR_TEMP_BASED_HEATING (실내온도 기준 난방)
+- props: Object (2 properties)
+- props.targetTemp: Number (in celsius)
+- props.currentTemp: Number (in celsius)
+
+#### WATER_TEMP_BASED_HEATING
+- name: WATER_TEMP_BASED_HEATING (난방수 온도 기준 난방)
+- props: Object (2 properties)
+- props.targetTemp: Number (in celsius)
+- props.currentTemp: Number (in celsius)
+
+#### HOT_WATER_ONLY
+- name: HOT_WATER_ONLY (목욕모드 / 온수전용)
+- props: Object (2 properties)
+- props.targetTemp: Number (in celsius)
+- props.currentTemp: Number (in celsius)
+
+#### AWAY (외출모드)
+- name: AWAY
+- props: N/A
+
+#### TIMETABLE_BASED_REPEATING (지정시간 기준 예약모드)
+- name: TIMETABLE_BASED_REPEATING 
+- props: Object (1 property)
+- props.timetable: Boolean[], 30분단위, 총 24시간 = 48 slots
+  - index 0 - 00:00 ~ 00:30
+  - index 1 - 00:30 ~ 01:00
+  - ...
+  - index 46 - 23:00 ~ 23:30
+  - index 47 - 23:30 ~ 24:00
+
+
+#### INTERVAL_BASED_REPEATING (작동/유휴시간 기준 반복모드)
+- name: INTERVAL_BASED_REPEATING
+- props: Object (2 properties)
+- props.activeMinutes: Number (가동시간, 분단위)
+- props.pauseHours: Number (중지시간, 시단위)
 
 
 
 ## Testing
 
+> $ npm run test
+
+... OR
+
 > $ npm run lint
+
 > $ npm run coverage
+
 
 
 ## Build
@@ -135,7 +296,7 @@ api.sendCommand(Commands.OperatingState.forge().indoorTempBasedHeating())
 ## To-do
 
 - [x] 제어 API 구현
-- [ ] 상태 수신을 위한 Receiver 구현
+- [x] 상태 수신을 위한 Receiver 구현
 - [ ] TCP Socket API 구현
 
 
