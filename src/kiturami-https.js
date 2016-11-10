@@ -15,6 +15,10 @@ const
  * KituramiHttpsAPI Class
  */
 class KituramiHttpsAPI {
+  static forge(...args) {
+    return new this(...args);
+  }
+
   /**
    * KituramiHttpsAPI Class constructor
    *

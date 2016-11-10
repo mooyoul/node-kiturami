@@ -13,6 +13,11 @@ describe('KituramiHttpsAPI Class', () => {
     nock.cleanAll();
   });
 
+  it('has `forge` static method', () => {
+    const api = KituramiHttpsAPI.forge('foo');
+    expect(api.apiKey).equals('foo');
+  });
+
   it('has `getAPIKey` method', () => {
     const _api = new KituramiHttpsAPI('foo');
     expect(_api.getAPIkey()).equals('foo');
