@@ -8,6 +8,18 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/mooyoul/node-kiturami/badge.svg)](https://snyk.io/test/github/mooyoul/node-kiturami)
 [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://mooyoul.mit-license.org/)
 
+
+[![Send Command Demo](https://i.ytimg.com/vi/rqXfGd4H6O0/hqdefault.jpg)](https://youtu.be/rqXfGd4H6O0)
+
+[See video demo - Send commands](https://youtu.be/rqXfGd4H6O0)
+
+
+[![Receiver Demo](https://i.ytimg.com/vi/zO3O0QvKh5Q/hqdefault.jpg)](https://youtu.be/zO3O0QvKh5Q)
+
+[See video demo - Detects state changes](https://youtu.be/zO3O0QvKh5Q)
+
+
+
 Unofficial kiturami iot thermo controller API for Node.js
 
 _비공식_ 귀뚜라미 IoT 온도제어기 Javascript API
